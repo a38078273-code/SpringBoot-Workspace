@@ -30,8 +30,9 @@ public class MembreController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Membre> findById(@PathVariable Long id) {
-		return membreService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+	public Membre findById(@PathVariable Long id) {
+		return membreService.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Membre introuvable: " + id));
 	}
 
 	@GetMapping("/cin")
